@@ -1,0 +1,73 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBidDocumentLabel">Create or edit a Bid Document</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!bidDocument.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="bidDocument.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_documentName">Document Name</label>
+            <input type="text" class="form-control" name="documentName" id="field_documentName"
+                [(ngModel)]="bidDocument.documentName" required/>
+            <div [hidden]="!(editForm.controls.documentName?.dirty && editForm.controls.documentName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.documentName?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_file">File</label>
+            <div>
+                <div *ngIf="bidDocument.file" class="form-text text-danger clearfix">
+                    <a class="pull-left" (click)="openFile(bidDocument.fileContentType, bidDocument.file)">open</a><br>
+                    <span class="pull-left">{{bidDocument.fileContentType}}, {{byteSize(bidDocument.file)}}</span>
+                    <button type="button" (click)="bidDocument.file=null;bidDocument.fileContentType=null;"
+                            class="btn btn-secondary btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <input type="file" id="file_file" (change)="setFileData($event, bidDocument, 'file', false)"/>
+            </div>
+            <input type="hidden" class="form-control" name="file" id="field_file"
+                [(ngModel)]="bidDocument.file" required/>
+            <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType"
+                [(ngModel)]="bidDocument.fileContentType" />
+            <div [hidden]="!(editForm.controls.file?.dirty && editForm.controls.file?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.file?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_bid">Bid</label>
+            <select class="form-control" id="field_bid" name="bid" [(ngModel)]="bidDocument.bid"  required>
+                <option *ngIf="!editForm.value.bid" [ngValue]="null" selected></option>
+                <option [ngValue]="bidOption.id === bidDocument.bid?.id ? bidDocument.bid : bidOption" *ngFor="let bidOption of bids; trackBy: trackBidById">{{bidOption.bidName}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.bid?.dirty && editForm.controls.bid?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.bid?.errors?.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

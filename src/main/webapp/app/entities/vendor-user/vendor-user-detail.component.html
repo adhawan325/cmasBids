@@ -1,0 +1,32 @@
+
+<div *ngIf="vendorUser">
+    <h2><span>Vendor User</span> {{vendorUser.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>User Name</span></dt>
+        <dd>
+            <span>{{vendorUser.userName}}</span>
+        </dd>
+        <dt><span>Vendor</span></dt>
+        <dd>
+            <div *ngIf="vendorUser.vendor">
+                <a [routerLink]="['/vendor', vendorUser.vendor?.id]">{{vendorUser.vendor?.vendorName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'vendor-user/'+ vendorUser.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

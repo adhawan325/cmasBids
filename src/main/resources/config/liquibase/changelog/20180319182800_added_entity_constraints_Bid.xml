@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Bid.
+    -->
+    <changeSet id="20180319182800-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="department_id"
+                                 baseTableName="bid"
+                                 constraintName="fk_bid_department_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="department"/>
+
+        <addForeignKeyConstraint baseColumnNames="bids_id"
+                                 baseTableName="bid_vendor"
+                                 constraintName="fk_bid_vendor_bids_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bid"/>
+        <addForeignKeyConstraint baseColumnNames="vendors_id"
+                                 baseTableName="bid_vendor"
+                                 constraintName="fk_bid_vendor_vendors_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vendor"/>
+        
+    </changeSet>
+</databaseChangeLog>

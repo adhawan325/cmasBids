@@ -1,0 +1,39 @@
+
+<div *ngIf="bidDocument">
+    <h2><span>Bid Document</span> {{bidDocument.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Document Name</span></dt>
+        <dd>
+            <span>{{bidDocument.documentName}}</span>
+        </dd>
+        <dt><span>File</span></dt>
+        <dd>
+            <div *ngIf="bidDocument.file">
+                <a (click)="openFile(bidDocument.fileContentType, bidDocument.file)">open</a>
+                {{bidDocument.fileContentType}}, {{byteSize(bidDocument.file)}}
+            </div>
+        </dd>
+        <dt><span>Bid</span></dt>
+        <dd>
+            <div *ngIf="bidDocument.bid">
+                <a [routerLink]="['/bid', bidDocument.bid?.id]">{{bidDocument.bid?.bidName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'bid-document/'+ bidDocument.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

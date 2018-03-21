@@ -1,0 +1,51 @@
+
+<div *ngIf="candidate">
+    <h2><span>Candidate</span> {{candidate.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Candidate Name</span></dt>
+        <dd>
+            <span>{{candidate.candidateName}}</span>
+        </dd>
+        <dt><span>Meets M Qs</span></dt>
+        <dd>
+            <span>{{candidate.meetsMQs}}</span>
+        </dd>
+        <dt><span>Meets D Qs</span></dt>
+        <dd>
+            <span>{{candidate.meetsDQs}}</span>
+        </dd>
+        <dt><span>Resume</span></dt>
+        <dd>
+            <div *ngIf="candidate.resume">
+                <a (click)="openFile(candidate.resumeContentType, candidate.resume)">open</a>
+                {{candidate.resumeContentType}}, {{byteSize(candidate.resume)}}
+            </div>
+        </dd>
+        <dt><span>Rate Per Hour</span></dt>
+        <dd>
+            <span>{{candidate.ratePerHour}}</span>
+        </dd>
+        <dt><span>Bid</span></dt>
+        <dd>
+            <span *ngFor="let bid of candidate.bids; let last = last">
+                <a [routerLink]="['/bid', bid?.id ]">{{bid.bidName}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'candidate/'+ candidate.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

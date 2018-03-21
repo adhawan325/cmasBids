@@ -1,0 +1,141 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBidLabel">Create or edit a Bid</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!bid.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="bid.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_bidNumber">Bid Number</label>
+            <input type="text" class="form-control" name="bidNumber" id="field_bidNumber"
+                [(ngModel)]="bid.bidNumber" required/>
+            <div [hidden]="!(editForm.controls.bidNumber?.dirty && editForm.controls.bidNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.bidNumber?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_bidName">Bid Name</label>
+            <input type="text" class="form-control" name="bidName" id="field_bidName"
+                [(ngModel)]="bid.bidName" required/>
+            <div [hidden]="!(editForm.controls.bidName?.dirty && editForm.controls.bidName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.bidName?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_endDate">End Date</label>
+            <div class="input-group">
+                <input id="field_endDate" type="text" class="form-control" name="endDate" ngbDatepicker  #endDateDp="ngbDatepicker" [(ngModel)]="bid.endDate"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.endDate?.dirty && editForm.controls.endDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.endDate?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_bidSOW">Bid SOW</label>
+            <p-editor [(ngModel)]="bid.bidSOW" name="bidSOW" class="form-control"
+                id="field_bidSOW" [style]="{'height':'320px'}" required></p-editor>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_bidMQs">Bid MQs</label>
+            <p-editor [(ngModel)]="bid.bidMQs" name="bidMQs" class="form-control"
+                id="field_bidMQs" [style]="{'height':'320px'}" required></p-editor>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_bidDQs">Bid DQs</label>
+           <p-editor [(ngModel)]="bid.bidDQs" name="bidDQs" class="form-control"
+                id="field_bidDQs" [style]="{'height':'320px'}" required></p-editor>
+            
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdBy">Created By</label>
+            <input type="text" class="form-control" name="createdBy" id="field_createdBy"
+                [(ngModel)]="bid.createdBy" required/>
+            <div [hidden]="!(editForm.controls.createdBy?.dirty && editForm.controls.createdBy?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdBy?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdOn">Created On</label>
+            <div class="input-group">
+                <input id="field_createdOn" type="text" class="form-control" name="createdOn" ngbDatepicker  #createdOnDp="ngbDatepicker" [(ngModel)]="bid.createdOn"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="createdOnDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.createdOn?.dirty && editForm.controls.createdOn?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdOn?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_modifiedOn">Modified On</label>
+            <div class="input-group">
+                <input id="field_modifiedOn" type="text" class="form-control" name="modifiedOn" ngbDatepicker  #modifiedOnDp="ngbDatepicker" [(ngModel)]="bid.modifiedOn"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="modifiedOnDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.modifiedOn?.dirty && editForm.controls.modifiedOn?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.modifiedOn?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_department">Department</label>
+            <select class="form-control" id="field_department" name="department" [(ngModel)]="bid.department"  required>
+                <option *ngIf="!editForm.value.department" [ngValue]="null" selected></option>
+                <option [ngValue]="departmentOption.id === bid.department?.id ? bid.department : departmentOption" *ngFor="let departmentOption of departments; trackBy: trackDepartmentById">{{departmentOption.departmentName}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.department?.dirty && editForm.controls.department?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.department?.errors?.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="field_vendor">Vendor</label>
+            <select class="form-control" id="field_vendor" multiple name="vendor" [(ngModel)]="bid.vendors">
+                <option [ngValue]="getSelected(bid.vendors, vendorOption)" *ngFor="let vendorOption of vendors; trackBy: trackVendorById">{{vendorOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

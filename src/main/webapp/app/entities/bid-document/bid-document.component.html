@@ -1,0 +1,82 @@
+<div>
+    <h2>
+        <span>Bid Documents</span>
+        <button class="btn btn-primary float-right jh-create-entity create-bid-document" [routerLink]="['/', { outlets: { popup: ['bid-document-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" >
+            Create new Bid Document
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="bidDocuments">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Document Name</span></th>
+            <th><span>File</span></th>
+            <th><span>Bid</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let bidDocument of bidDocuments ;trackBy: trackId">
+                <td><a [routerLink]="['../bid-document', bidDocument.id ]">{{bidDocument.id}}</a></td>
+                <td>{{bidDocument.documentName}}</td>
+                <td>
+                    <a *ngIf="bidDocument.file" (click)="openFile(bidDocument.fileContentType, bidDocument.file)">open</a>
+                    <span *ngIf="bidDocument.file">{{bidDocument.fileContentType}}, {{byteSize(bidDocument.file)}}</span>
+                </td>
+                <td>
+                    <div *ngIf="bidDocument.bid">
+                        <a [routerLink]="['../bid', bidDocument.bid?.id ]" >{{bidDocument.bid?.bidName}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../bid-document', bidDocument.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bid-document/'+ bidDocument.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bid-document/'+ bidDocument.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

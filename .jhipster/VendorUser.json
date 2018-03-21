@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "vendor",
+            "otherEntityName": "vendor",
+            "otherEntityField": "vendorName"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "userName",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180319182805",
+    "entityTableName": "vendor_user",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

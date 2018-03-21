@@ -1,0 +1,84 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myVendorLabel">Create or edit a Vendor</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!vendor.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="vendor.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_vendorName">Vendor Name</label>
+            <input type="text" class="form-control" name="vendorName" id="field_vendorName"
+                [(ngModel)]="vendor.vendorName" required/>
+            <div [hidden]="!(editForm.controls.vendorName?.dirty && editForm.controls.vendorName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.vendorName?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_vendorContact">Vendor Contact</label>
+            <input type="text" class="form-control" name="vendorContact" id="field_vendorContact"
+                [(ngModel)]="vendor.vendorContact" required/>
+            <div [hidden]="!(editForm.controls.vendorContact?.dirty && editForm.controls.vendorContact?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.vendorContact?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_contactEmail">Contact Email</label>
+            <input type="text" class="form-control" name="contactEmail" id="field_contactEmail"
+                [(ngModel)]="vendor.contactEmail" required/>
+            <div [hidden]="!(editForm.controls.contactEmail?.dirty && editForm.controls.contactEmail?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.contactEmail?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_contactPhone">Contact Phone</label>
+            <input type="text" class="form-control" name="contactPhone" id="field_contactPhone"
+                [(ngModel)]="vendor.contactPhone" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_vendorNotes">Vendor Notes</label>
+            <textarea class="form-control" name="vendorNotes" id="field_vendorNotes"
+                [(ngModel)]="vendor.vendorNotes" ></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_vendorEndDate">Vendor End Date</label>
+            <div class="input-group">
+                <input id="field_vendorEndDate" type="text" class="form-control" name="vendorEndDate" ngbDatepicker  #vendorEndDateDp="ngbDatepicker" [(ngModel)]="vendor.vendorEndDate"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="vendorEndDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.vendorEndDate?.dirty && editForm.controls.vendorEndDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.vendorEndDate?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

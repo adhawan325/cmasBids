@@ -1,0 +1,46 @@
+
+<div *ngIf="vendor">
+    <h2><span>Vendor</span> {{vendor.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Vendor Name</span></dt>
+        <dd>
+            <span>{{vendor.vendorName}}</span>
+        </dd>
+        <dt><span>Vendor Contact</span></dt>
+        <dd>
+            <span>{{vendor.vendorContact}}</span>
+        </dd>
+        <dt><span>Contact Email</span></dt>
+        <dd>
+            <span>{{vendor.contactEmail}}</span>
+        </dd>
+        <dt><span>Contact Phone</span></dt>
+        <dd>
+            <span>{{vendor.contactPhone}}</span>
+        </dd>
+        <dt><span>Vendor Notes</span></dt>
+        <dd>
+            <span>{{vendor.vendorNotes}}</span>
+        </dd>
+        <dt><span>Vendor End Date</span></dt>
+        <dd>
+            <span>{{vendor.vendorEndDate | date:'mediumDate'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'vendor/'+ vendor.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

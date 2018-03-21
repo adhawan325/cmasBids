@@ -1,0 +1,91 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCandidateLabel">Create or edit a Candidate</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!candidate.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="candidate.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_candidateName">Candidate Name</label>
+            <input type="text" class="form-control" name="candidateName" id="field_candidateName"
+                [(ngModel)]="candidate.candidateName" required/>
+            <div [hidden]="!(editForm.controls.candidateName?.dirty && editForm.controls.candidateName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.candidateName?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_meetsMQs">Meets M Qs</label>
+            <input type="checkbox" class="form-control" name="meetsMQs" id="field_meetsMQs"
+                [(ngModel)]="candidate.meetsMQs" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_meetsDQs">Meets D Qs</label>
+            <input type="checkbox" class="form-control" name="meetsDQs" id="field_meetsDQs"
+                [(ngModel)]="candidate.meetsDQs" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_resume">Resume</label>
+            <div>
+                <div *ngIf="candidate.resume" class="form-text text-danger clearfix">
+                    <a class="pull-left" (click)="openFile(candidate.resumeContentType, candidate.resume)">open</a><br>
+                    <span class="pull-left">{{candidate.resumeContentType}}, {{byteSize(candidate.resume)}}</span>
+                    <button type="button" (click)="candidate.resume=null;candidate.resumeContentType=null;"
+                            class="btn btn-secondary btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <input type="file" id="file_resume" (change)="setFileData($event, candidate, 'resume', false)"/>
+            </div>
+            <input type="hidden" class="form-control" name="resume" id="field_resume"
+                [(ngModel)]="candidate.resume" required/>
+            <input type="hidden" class="form-control" name="resumeContentType" id="field_resumeContentType"
+                [(ngModel)]="candidate.resumeContentType" />
+            <div [hidden]="!(editForm.controls.resume?.dirty && editForm.controls.resume?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.resume?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_ratePerHour">Rate Per Hour</label>
+            <input type="number" class="form-control" name="ratePerHour" id="field_ratePerHour"
+                [(ngModel)]="candidate.ratePerHour" required/>
+            <div [hidden]="!(editForm.controls.ratePerHour?.dirty && editForm.controls.ratePerHour?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ratePerHour?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.ratePerHour?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="field_bid">Bid</label>
+            <select class="form-control" id="field_bid" multiple name="bid" [(ngModel)]="candidate.bids">
+                <option [ngValue]="getSelected(candidate.bids, bidOption)" *ngFor="let bidOption of bids; trackBy: trackBidById">{{bidOption.bidName}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
