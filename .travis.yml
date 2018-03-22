@@ -1,0 +1,55 @@
+os:
+- linux
+services:
+- docker
+language: node_js
+node_js:
+- 8.9.4
+jdk:
+- oraclejdk8
+sudo: false
+cache:
+  directories:
+  - node
+  - node_modules
+  - "$HOME/.m2"
+  - "$HOME/.yarn-cache"
+env:
+  global:
+  - NODE_VERSION=8.9.4
+  - SPRING_OUTPUT_ANSI_ENABLED=ALWAYS
+  - SPRING_JPA_SHOW_SQL=false
+before_install:
+- jdk_switcher use oraclejdk8
+- java -version
+- sudo /etc/init.d/mysql stop
+- sudo /etc/init.d/postgresql stop
+- curl -o- -L https://yarnpkg.com/install.sh | bash
+- export PATH=$HOME/.yarn/bin:$PATH
+before_deploy:
+- "./mvnw package -Pprod dockerfile:build"
+install:
+- yarn install
+script:
+- chmod +x mvnw
+- "./mvnw clean test"
+- yarn test
+- "./mvnw verify -Pprod -DskipTests"
+- "./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar"
+notifications:
+  webhooks:
+    on_success: change
+    on_failure: always
+    on_start: false
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash docker_deploy
+  on:
+    branch: master
+addons:
+  sonarcloud:
+    organization: adhawan-vip-github
+    token:
+      secure: TeeNnyyKX9YFVv2onngd0G8C5LQ0WwODLx8aHUIqWt0pSgxEXbJAgt3wG2gA6IdzxzVHg5jqpjmiU8X0OXW1+ax9xayIeroK8UBY+8ol7fjMutVLf9X41GLRPsD4Z4GupWCbil+BG5UngIkiYuEgMXC42UrHytFtp4ighhCVkZ8ePkx9OffeLXEuEn+ICpRVqZvx1RNaf4eMs9V+qDEwyMvUaEpJmRdpNwLrC3yfO3Fow6BPua7pexuGFqbHFGz7yOWID/zxgL2fCyflD+lHcLYkZTrnw/r+B4zEC3OSFdLu6QlGt92Ine55Qz/+oP4JOvPjUxfzUF7MATqs9u9ofvvxtXUK71YNmhaS5dkStL9okq4r1jmiZcUhAKXIFgTqegiK1vnDB/uwrc4JALIscs8L8nZYrXprbx5Q/BQ5UzRPVvP7gMVufIWlqDjeJmR313kAEGdRPj4uaO7iA14rYnpqikPnlW97BoMjy1ghFpnh6lsrAqFaXitYVP0dUK1O4OCyDwGd7D6kFXB6RT+nnhfDQLMt9psumz7Qk1J5B2KuurfOQkGFIAqsA1ATAn4gbvuSAQvFFi69l6nQywZ6q6mdsuRh1vPTyHpzRgXNn2Ge2St38UTwCjjcTQAStWR6ZuNWkE+NH1aJQTaZcOn/JbsNPuGsKAXP0C2fvAcSKV4=
+
