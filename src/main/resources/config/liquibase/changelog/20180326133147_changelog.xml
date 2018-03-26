@@ -1,0 +1,275 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="adhawan (generated)" id="1522071122019-1">
+        <createTable tableName="bid">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="bidPK"/>
+            </column>
+            <column name="bid_d_qs" type="CLOB"/>
+            <column name="bid_m_qs" type="CLOB"/>
+            <column name="bid_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bid_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bid_sow" type="CLOB"/>
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_on" type="BINARY(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="BINARY(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_on" type="BINARY(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-2">
+        <createTable tableName="bid_document">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="bid_documentPK"/>
+            </column>
+            <column name="document_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="jhi_file" type="BLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="jhi_file_content_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bid_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-3">
+        <createTable tableName="bid_vendor">
+            <column name="bids_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vendors_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-4">
+        <createTable tableName="candidate">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="candidatePK"/>
+            </column>
+            <column name="candidate_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meets_d_qs" type="BOOLEAN"/>
+            <column name="meets_m_qs" type="BOOLEAN"/>
+            <column name="rate_per_hour" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resume" type="BLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resume_content_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-5">
+        <createTable tableName="candidate_bid">
+            <column name="candidates_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bids_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-6">
+        <createTable tableName="department">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="departmentPK"/>
+            </column>
+            <column name="department_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-7">
+        <createTable tableName="jhi_authority">
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-8">
+        <createTable tableName="jhi_persistent_audit_event">
+            <column autoIncrement="true" name="event_id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="jhi_persistent_audit_eventPK"/>
+            </column>
+            <column name="event_date" type="BINARY(255)"/>
+            <column name="event_type" type="VARCHAR(255)"/>
+            <column name="principal" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-9">
+        <createTable tableName="jhi_persistent_audit_evt_data">
+            <column name="event_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-10">
+        <createTable tableName="jhi_persistent_token">
+            <column name="series" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ip_address" type="VARCHAR(39)"/>
+            <column name="token_date" type="BINARY(255)"/>
+            <column name="token_value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_agent" type="VARCHAR(255)"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-11">
+        <createTable tableName="jhi_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="jhi_userPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="BINARY(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="BINARY(255)"/>
+            <column name="activated" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activation_key" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(100)"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="image_url" type="VARCHAR(256)"/>
+            <column name="lang_key" type="VARCHAR(6)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(60)"/>
+            <column name="reset_date" type="BINARY(255)"/>
+            <column name="reset_key" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-12">
+        <createTable tableName="jhi_user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-13">
+        <createTable tableName="vendor">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="vendorPK"/>
+            </column>
+            <column name="contact_email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact_phone" type="VARCHAR(255)"/>
+            <column name="vendor_contact" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vendor_end_date" type="BINARY(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vendor_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vendor_notes" type="CLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-14">
+        <createTable tableName="vendor_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="vendor_userPK"/>
+            </column>
+            <column name="user_name" type="VARCHAR(255)"/>
+            <column name="vendor_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-15">
+        <addPrimaryKey columnNames="bids_id, vendors_id" tableName="bid_vendor"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-16">
+        <addPrimaryKey columnNames="candidates_id, bids_id" tableName="candidate_bid"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-17">
+        <addPrimaryKey columnNames="event_id, name" tableName="jhi_persistent_audit_evt_data"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-18">
+        <addPrimaryKey columnNames="user_id, authority_name" tableName="jhi_user_authority"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-19">
+        <addPrimaryKey columnNames="name" constraintName="jhi_authorityPK" tableName="jhi_authority"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-20">
+        <addPrimaryKey columnNames="series" constraintName="jhi_persistent_tokenPK" tableName="jhi_persistent_token"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-21">
+        <addUniqueConstraint columnNames="email" constraintName="UC_JHI_USEREMAIL_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-22">
+        <addUniqueConstraint columnNames="login" constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-23">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="jhi_user_authority" constraintName="FK290okww5jujghp4el5i7mgwu0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-24">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="jhi_persistent_audit_evt_data" constraintName="FK2ehnyx2si4tjd2nt4q7y40v8m" deferrable="false" initiallyDeferred="false" referencedColumnNames="event_id" referencedTableName="jhi_persistent_audit_event"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-25">
+        <addForeignKeyConstraint baseColumnNames="bids_id" baseTableName="candidate_bid" constraintName="FK2eiwybywi6g8vlbrlsp7vo6l0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="bid"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-26">
+        <addForeignKeyConstraint baseColumnNames="vendors_id" baseTableName="bid_vendor" constraintName="FK3042ocql834eeqnv9omnypn4n" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="vendor"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-27">
+        <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="jhi_user_authority" constraintName="FK4psxl0jtx6nr7rhqbynr6itoc" deferrable="false" initiallyDeferred="false" referencedColumnNames="name" referencedTableName="jhi_authority"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-28">
+        <addForeignKeyConstraint baseColumnNames="bid_id" baseTableName="bid_document" constraintName="FKb4m1vq565iyu7lrgjvonyr9mf" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="bid"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-29">
+        <addForeignKeyConstraint baseColumnNames="vendor_id" baseTableName="vendor_user" constraintName="FKdbe6yu8i4jjemiofvqqjcv0b5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="vendor"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-30">
+        <addForeignKeyConstraint baseColumnNames="department_id" baseTableName="bid" constraintName="FKdo1brp4b1k2uvu8cy7rbkc841" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="department"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-31">
+        <addForeignKeyConstraint baseColumnNames="candidates_id" baseTableName="candidate_bid" constraintName="FKg3ga0nd2gnl4utcyem0kvcgst" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="candidate"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-32">
+        <addForeignKeyConstraint baseColumnNames="bids_id" baseTableName="bid_vendor" constraintName="FKmcrp2yh3vjx0ioybt772vp21l" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="bid"/>
+    </changeSet>
+    <changeSet author="adhawan (generated)" id="1522071122019-33">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="jhi_persistent_token" constraintName="FKmogh0vmv89yg5kofe6n3t77ud" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>
