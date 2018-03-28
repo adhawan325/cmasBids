@@ -48,7 +48,7 @@ spring:
     data:
         elasticsearch:
             cluster-name:
-            cluster-nodes: https://vpc-cmasbids-32boy72t32dfi6nzq3o4ae4f6a.us-west-1.es.amazonaws.com
+            cluster-nodes: vpc-cmasbids-32boy72t32dfi6nzq3o4ae4f6a.us-west-1.es.amazonaws.com:443
     mail:
         host: localhost
         port: 25
