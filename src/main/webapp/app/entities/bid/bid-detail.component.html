@@ -4,10 +4,6 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span>Bid Number</span></dt>
-        <dd>
-            <span>{{bid.bidNumber}}</span>
-        </dd>
         <dt><span>Bid Name</span></dt>
         <dd>
             <span>{{bid.bidName}}</span>
@@ -16,41 +12,11 @@
         <dd>
             <span>{{bid.endDate | date:'mediumDate'}}</span>
         </dd>
-        <dt><span>Bid SOW</span></dt>
-        <dd>
-            <span>{{bid.bidSOW}}</span>
-        </dd>
-        <dt><span>Bid M Qs</span></dt>
-        <dd>
-            <span>{{bid.bidMQs}}</span>
-        </dd>
-        <dt><span>Bid D Qs</span></dt>
-        <dd>
-            <span>{{bid.bidDQs}}</span>
-        </dd>
-        <dt><span>Created By</span></dt>
-        <dd>
-            <span>{{bid.createdBy}}</span>
-        </dd>
-        <dt><span>Created On</span></dt>
-        <dd>
-            <span>{{bid.createdOn | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span>Modified On</span></dt>
-        <dd>
-            <span>{{bid.modifiedOn | date:'mediumDate'}}</span>
-        </dd>
         <dt><span>Department</span></dt>
         <dd>
             <div *ngIf="bid.department">
                 <a [routerLink]="['/department', bid.department?.id]">{{bid.department?.departmentName}}</a>
             </div>
-        </dd>
-        <dt><span>Vendor</span></dt>
-        <dd>
-            <span *ngFor="let vendor of bid.vendors; let last = last">
-                <a [routerLink]="['/vendor', vendor?.id ]">{{vendor.id}}</a>{{last ? '' : ', '}}
-            </span>
         </dd>
     </dl>
 
